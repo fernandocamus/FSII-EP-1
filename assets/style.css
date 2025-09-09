@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F7F7F7;
+}
+
+.container-presentacion {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Mostrar solo al pasar el mouse */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 15%;
+    transform: translateX(-50%);
+    min-width: 190px;
+}
+
+#logo{
+    text-align: center;
+}
