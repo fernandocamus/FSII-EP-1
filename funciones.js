@@ -11,7 +11,7 @@ function validacionVacio(campo) {
 
 // VALIDACION @gmail.cl
 function correoEsGmail(correo) {
-    return /@gmail\.cl$/i.test(correo);
+    return /@gmail\.com$/i.test(correo);
 }
 
 // VALIDACION NOMBRE: LETRAS, 50 CARACTERES MAX
@@ -34,14 +34,14 @@ function validacionTelefono(telefonoTex) {
 
 // VALIDACION CORREO UNICO (true si es unico)
 function esCorreoUnico(correo) {
-    var lista = JSON.parse(localStorage.getItem("correosRegistrados") || "[]");
+    var lista = JSON.parse(localStorage.getItem("usuariosRegistrados") || "[]");
     return !lista.includes(correo.toLowerCase());
 }
 
 //GUARDAR USUARIO
 function guardarUsuarioEnLocalStorage(nombre, correo, password, telefono, direccion) {
     var lista = JSON.parse(localStorage.getItem("usuariosRegistrados") || "[]");
-    lista.push({nombre, correo: correo.toLowerCase(), password, telefono});
+    lista.push({nombre, correo: correo.toLowerCase(), password, telefono, direccion});
     localStorage.setItem("usuariosRegistrados", JSON.stringify(lista));//
 }
 
@@ -93,7 +93,7 @@ function validacionRegistro() {
     if (validacionVacio(correo)) {
         var correoVal = correo.val().trim();
         if (!validacionCorreo(correoVal)) textoErrores.push("El formato del correo no es válido.");
-        else if (!correoEsGmail(correoVal)) textoErrores.push("El correo debe pertenecer al dominio @gmail.cl.");
+        else if (!correoEsGmail(correoVal)) textoErrores.push("El correo debe pertenecer al dominio @gmail.com.");
         else if (!esCorreoUnico(correoVal)) textoErrores.push("El correo ya está registrado en el sistema.");
     }
 
@@ -112,7 +112,7 @@ function validacionRegistro() {
         mensajeError += "</div>";
         $("#resultado").html(mensajeError);
     } else {
-        guardarUsuarioEnLocalStorage(nombre.val().trim(), correo.val().trim(), password.val(), telefono.val().trim());
+        guardarUsuarioEnLocalStorage(nombre.val().trim(), correo.val().trim(), password.val(), telefono.val().trim(), direccion.val().trim());
         $("#resultado").html("<div class='alert alert-success'><strong>¡Perfecto!</strong> Registro completado correctamente.</div>");
         $("#formRegistro")[0].reset();
     }
@@ -140,7 +140,7 @@ function validacionCambioPassword() {
     if (validacionVacio(correo)) {
         var correoVal = correo.val().trim();
         if (!validacionCorreo(correoVal)) textoErrores.push("El formato del correo no es válido.");
-        else if (!correoEsDuoc(correoVal)) textoErrores.push("El correo debe pertenecer al dominio @duoc.cl.");
+        else if (!correoEsGmail(correoVal)) textoErrores.push("El correo debe pertenecer al dominio @gmail.com.");
         else if (!esCorreoUnico(correoVal)) textoErrores.push("El correo ya está registrado en el sistema.");
     }
 
@@ -159,7 +159,7 @@ function validacionCambioPassword() {
     } else {
         cambiarUsuarioEnLocalStorage(correo.val().trim(), password.val());
         $("#resultado").html("<div class='alert alert-success'> Cambio de contraseña completado correctamente.</div>");
-        $("#formRegistro")[0].reset();
+        $("#formCambioPass")[0].reset();
     }
 
     return false;
@@ -191,11 +191,12 @@ function mostrarUsuarioNav() {
     if (usuario) {
         // USUARIO LOGUEADO
         menu.html(
-            `<li><a class='dropdown-item text-primary' href='gestionperfil.html'>Gestionar Perfil</a></li>
-            <li><strong>${usuario.nombre}</strong></li>
+            `<li><strong>${usuario.nombre}</strong></li>
             <li><span class='text-muted'>${usuario.correo}</span></li>
+            <li><a class='dropdown-item text-dark' href='gestionperfil.html'>Gestionar Perfil</a></li>
+            <li><a class='dropdown-item text-dark' href='historialcompras.html'>Historial de compras</a></li>
             <li><hr class='dropdown-divider'></li>
-            <li><a class='dropdown-item text-primary' href='passchange.html'>Cambiar contraseña</a></li>
+            <li><a class='dropdown-item text-success' href='passchange.html'>Cambiar contraseña</a></li>
             <li><a class='dropdown-item text-danger' href='#' id='cerrarSesion'>Cerrar sesión</a></li>`
         );
         $("#cerrarSesion").click(function() {
@@ -208,11 +209,51 @@ function mostrarUsuarioNav() {
             `<li><strong>Invitado</strong></li>
             <li class='text-muted'>No has iniciado sesión</li>
             <li><hr class='dropdown-divider'></li>
-            <li><a class='dropdown-item text-primary' href='registro.html'>Registrarse</a></li>
-            <li><a class='dropdown-item text-primary' href='login.html'>Iniciar sesión</a></li>`
+            <li><a class='dropdown-item text-success' href='registro.html'>Registrarse</a></li>
+            <li><a class='dropdown-item text-success' href='login.html'>Iniciar sesión</a></li>`
         );
     }
     $(".nav-item.dropdown").show();
+}
+
+function actualizarPerfil(nombre, direccion, telefono, password) {
+    var usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo") || "null");
+    if (!usuarioActivo) return false;
+
+    var lista =JSON.parse(localStorage.getItem("usuariosRegistrados") || "[]");
+
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].correo === usuarioActivo.correo){
+            lista[i].nombre = nombre;
+            lista[i].direccion = direccion;
+            lista[i].telefono = telefono;
+            if (password.trim() !== "") lista[i].password = password;
+            usuarioActivo = lista[i];
+            break;
+        }
+    }
+
+    localStorage.setItem("usuariosRegistrados", JSON.stringify(lista));
+    localStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
+    return true;
+}
+
+function cambiarUsuarioEnLocalStorage(correo, password) {
+    var lista = JSON.parse(localStorage.getItem("usuariosRegistrados") || "[]");
+    var usuario = null;
+    for(var i = 0; i < lista.length; i++) {
+        if (lista[i]?.correo === correo.toLowerCase()) {
+            usuario = lista[i];
+            lista[i].password = password;
+            break;
+        }
+    }
+    if (usuario) {
+        localStorage.setItem("usuariosRegistrados", JSON.stringify(lista));
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // BOTONES
@@ -234,3 +275,16 @@ $("#btnLogin").click(function() {
 
 // CAMBIAR CONTRASEÑA
 $("#btnCambiarPass").click(validacionCambioPassword);
+
+$("#btnActualizarPerfil").click(function() {
+    var nombre = $("#nombre").val().trim();
+    var direccion = $("#direccion").val().trim();
+    var telefono = $("#telefono").val().trim();
+    var password = $("#password").val().trim();
+
+    if (actualizarPerfil(nombre,direccion,telefono,password)) {
+        $("#perfilResultado").html("<div class='alert alert-success'>Perfil actualizado correctamente.</div>");
+    } else {
+        $("#perfilResultado").html("<div class='alert alert-danger'>Error al actualizar perfil.</div>");
+    }
+})

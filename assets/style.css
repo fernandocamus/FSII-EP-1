@@ -1,8 +1,60 @@
 body {
-    font-family: Arial, sans-serif;
+    background-color: #F7F7F7;
+    font-family: "Montserrat", sans-serif;
+    color: #333333;
+    background-image: url("../assets/img/background.jpg");
+    background-repeat: repeat;
+}
+
+nav.navbar {
     background-color: #F7F7F7;
 }
 
+nav.navbar .navbar-brand {
+    color: #8B4513;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+nav.navbar .nav-link {
+    color: #2E8B57;
+    font-size: 20px;
+}
+
+nav.navbar .nav-link.active {
+    color: #256d44;
+    font-size: 20px;
+}
+
+nav.navbar .nav-link:hover {
+    color: #256d44;
+}
+
+footer {
+    background-color: #F7F7F7;
+    color: #333333
+}
+
+footer h6 {
+    color: #8B4513;
+}
+
+footer p {
+    color: #2E8B57;
+}
+
+footer div {
+    color: #666666;
+}
+
+footer a {
+    color: #2E8B57;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
 .container-presentacion {
     max-width: 500px;
     margin: 0 auto;
@@ -20,4 +72,33 @@ body {
 
 #logo{
     text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display", serif;
+    color: #8B4513;
+}
+
+a {
+    color: #2E8B57
+}
+
+
+
+.btn-primary {
+    background-color: #2E8B57;
+    border-color: #2E8B57;
+}
+
+.btn-primary:hover {
+    background-color: #256d44;
+    border-color: #256d44;
+}
+
+.form-label {
+    color: #666666;
+}
+
+.oferta-especial {
+    color: #FFD700;
 }
