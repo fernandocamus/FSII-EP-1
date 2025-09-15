@@ -302,9 +302,6 @@ function guardarCarrito(carrito) {
     localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-// CARRITO AL INICIAR
-document.addEventListener("DOMContentLoaded", actualizarCarrito);
-
 // AGREGAR PRODUCTO
 function agregarAlCarrito(codigo, nombre, precio, unidad, cantidad) {
     var carrito = obtenerCarrito();
@@ -439,12 +436,6 @@ document.querySelectorAll(".filtro-btn").forEach(boton => {
     });
 });
 
-// Mostrar descripción
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("descripcion-categoria").textContent =
-        descripcionesCategorias["todos"];
-});
-
 // ---------------------------------------------------------------------------------------------------------------------
 // OBTENER HISTORIAL DE COMPRAS
 function obtenerHistorial() {
@@ -457,12 +448,9 @@ function guardarHistorial(historial) {
     localStorage.setItem('historialCompras', JSON.stringify(historial));
 }
 
-
-
 // AGREGAR COMPRAS AL HISTORIAL
 function agregarComprasAlHistorial(productos) {
     const historial = obtenerHistorial();
-    // Asumimos que cada producto tiene 'nombre', 'precio' y 'cantidad'
 
     const itemsComprados = productos.map(p => ({
         producto: p.nombre,
@@ -473,7 +461,7 @@ function agregarComprasAlHistorial(productos) {
     }));
 
     const nuevaCompra = {
-        id: Date.now(), // ID único para la compra usando el timestamp
+        id: Date.now(),
         fecha: new Date().toLocaleDateString('es-ES'),
         items: itemsComprados,
         calificacion: null
@@ -488,8 +476,8 @@ function mostrarHistorialCompras() {
     const historialTableBody = document.getElementById('historial-compras-table')?.getElementsByTagName('tbody')[0];
 
     if (historialTableBody) {
-        historialTableBody.innerHTML = ''; // Limpiar la tabla antes de rellenarla
-        historial.reverse().forEach(compra => { // .reverse() para mostrar las más recientes primero
+        historialTableBody.innerHTML = '';
+        historial.reverse().forEach(compra => {
             const nombresProductos = compra.items.map(item => item.producto).join(', ');
             const precioTotal = compra.items.reduce((total, item) => total + (item.precio * item.cantidad), 0);
 
@@ -529,7 +517,7 @@ function calificarCompra(compraId, calificacion) {
         historial[compraIndex].calificacion = parseInt(calificacion);
         guardarHistorial(historial);
         alert(`¡Gracias por tu calificación de ${calificacion} estrellas!`);
-        // Volver a renderizar para deshabilitar el select y mostrar la calificación
+
         mostrarHistorialCompras();
     }
 }
@@ -576,11 +564,24 @@ function procesarCompra() {
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
+    // ACTUALIZAR CARRITO
+    actualizarCarrito();
+
+    // MOSTRAR DESCRIPCIÓN DE CATEGORÍAS
+    const descripcionCategoria = document.getElementById("descripcion-categoria");
+    if (descripcionCategoria) {
+        descripcionCategoria.textContent = descripcionesCategorias["todos"];
+    }
+
     // EJECUTAR SOLO EN HISTORIAL COMPRAS
     if (window.location.pathname.endsWith('historialcompras.html')) {
         mostrarHistorialCompras();
+    }
+
+    // EJECUTAR SOLO EN SEGUIMIENTO DE PEDIDOS
+    if (window.location.pathname.endsWith('seguimientopedido.html')) {
+        mostrarSeguimientoPedidos();
     }
 });
 
@@ -676,4 +677,202 @@ function resetCalculadora() {
     calcularImpacto();
 
     $('.calculadora-resultado').fadeOut(200).fadeIn(400);
+}
+
+
+// ----------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// SISTEMA DE SEGUIMIENTO DE PEDIDOS
+
+// OBTENER PEDIDOS ACTIVOS
+function obtenerPedidos() {
+    const pedidosJSON = localStorage.getItem('pedidosActivos');
+    return pedidosJSON ? JSON.parse(pedidosJSON) : [];
+}
+
+// GUARDAR PEDIDOS ACTIVOS
+function guardarPedidos(pedidos) {
+    localStorage.setItem('pedidosActivos', JSON.stringify(pedidos));
+}
+
+// AGREGAR NUEVO PEDIDO
+function agregarPedido(productos) {
+    const pedidos = obtenerPedidos();
+    const fechaActual = new Date();
+
+    const itemsComprados = productos.map(p => ({
+        producto: p.nombre,
+        precio: p.precio,
+        cantidad: p.cantidad,
+        codigo: p.codigo,
+        unidad: p.unidad
+    }));
+
+    const nuevoPedido = {
+        id: Date.now(),
+        fechaPedido: fechaActual.toLocaleDateString('es-ES'),
+        fechaEntregaSeleccionada: null,
+        items: itemsComprados,
+        estado: 'En preparación',
+        recepcionConfirmada: false
+    };
+
+    pedidos.push(nuevoPedido);
+    guardarPedidos(pedidos);
+
+    // NOTIFICACIÓN DE PEDIDO
+    mostrarNotificacion('¡Pedido realizado con éxito! Tu pedido está siendo preparado.', 'success');
+}
+
+// MOSTRAR SEGUIMIENTO DE PEDIDOS
+function mostrarSeguimientoPedidos() {
+    const pedidos = obtenerPedidos();
+    const pedidosTableBody = document.getElementById('historial-compras-table')?.getElementsByTagName('tbody')[0];
+
+    if (pedidosTableBody) {
+        pedidosTableBody.innerHTML = '';
+        pedidos.reverse().forEach(pedido => {
+            const nombresProductos = pedido.items.map(item => item.producto).join(', ');
+            const precioTotal = pedido.items.reduce((total, item) => total + (item.precio * item.cantidad), 0);
+
+            // Calcular fechas de entrega
+            const fechaBase = new Date(pedido.fechaPedido.split('/').reverse().join('-'));
+            const opcion1 = new Date(fechaBase);
+            opcion1.setDate(fechaBase.getDate() + 3);
+            const opcion2 = new Date(fechaBase);
+            opcion2.setDate(fechaBase.getDate() + 5);
+            const opcion3 = new Date(fechaBase);
+            opcion3.setDate(fechaBase.getDate() + 7);
+
+            const row = pedidosTableBody.insertRow();
+            row.innerHTML = `
+                <td>${nombresProductos}</td>
+                <td>${pedido.fechaPedido}</td>
+                <td>$${precioTotal.toFixed(0)} CLP</td>
+                <td>
+                    <select onchange="seleccionarFechaEntrega(${pedido.id}, this.value)" ${pedido.fechaEntregaSeleccionada ? 'disabled' : ''}>
+                        <option value="">${pedido.fechaEntregaSeleccionada ? `Entrega: ${pedido.fechaEntregaSeleccionada}` : 'Seleccionar fecha'}</option>
+                        <option value="${opcion1.toLocaleDateString('es-ES')}">${opcion1.toLocaleDateString('es-ES')} (3 días)</option>
+                        <option value="${opcion2.toLocaleDateString('es-ES')}">${opcion2.toLocaleDateString('es-ES')} (5 días)</option>
+                        <option value="${opcion3.toLocaleDateString('es-ES')}">${opcion3.toLocaleDateString('es-ES')} (7 días)</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="btn btn-sm ${pedido.recepcionConfirmada ? 'btn-success' : 'btn-outline-success'}" 
+                            onclick="confirmarRecepcion(${pedido.id})" 
+                            ${pedido.recepcionConfirmada ? 'disabled' : ''}>
+                        ${pedido.recepcionConfirmada ? 'Recibido ✓' : 'Confirmar recepción'}
+                    </button>
+                </td>
+            `;
+        });
+    }
+}
+
+// SELECCIONAR FECHA DE ENTREGA
+function seleccionarFechaEntrega(pedidoId, fechaSeleccionada) {
+    if (!fechaSeleccionada) return;
+
+    const pedidos = obtenerPedidos();
+    const pedidoIndex = pedidos.findIndex(p => p.id === pedidoId);
+
+    if (pedidoIndex !== -1) {
+        pedidos[pedidoIndex].fechaEntregaSeleccionada = fechaSeleccionada;
+        pedidos[pedidoIndex].estado = 'Programado para entrega';
+        guardarPedidos(pedidos);
+        mostrarNotificacion(`Fecha de entrega programada para: ${fechaSeleccionada}`, 'info');
+        mostrarSeguimientoPedidos();
+    }
+}
+
+// CONFIRMAR RECEPCIÓN
+function confirmarRecepcion(pedidoId) {
+    const pedidos = obtenerPedidos();
+    const pedidoIndex = pedidos.findIndex(p => p.id === pedidoId);
+
+    if (pedidoIndex !== -1 && !pedidos[pedidoIndex].recepcionConfirmada) {
+        pedidos[pedidoIndex].recepcionConfirmada = true;
+        pedidos[pedidoIndex].estado = 'Entregado';
+        pedidos[pedidoIndex].fechaRecepcion = new Date().toLocaleDateString('es-ES');
+
+        guardarPedidos(pedidos);
+        mostrarNotificacion('¡Recepción confirmada! Gracias por tu compra.', 'success');
+        mostrarSeguimientoPedidos();
+
+        // Mover pedido al historial después de confirmar recepción
+        moverPedidoAlHistorial(pedidos[pedidoIndex]);
+    }
+}
+
+// SISTEMA DE NOTIFICACIONES
+function mostrarNotificacion(mensaje, tipo = 'info') {
+    // Crear contenedor de notificaciones si no existe
+    let contenedorNotificaciones = document.getElementById('notificaciones-contenedor');
+    if (!contenedorNotificaciones) {
+        contenedorNotificaciones = document.createElement('div');
+        contenedorNotificaciones.id = 'notificaciones-contenedor';
+        contenedorNotificaciones.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            max-width: 400px;
+        `;
+        document.body.appendChild(contenedorNotificaciones);
+    }
+
+    // Crear notificación
+    const notificacion = document.createElement('div');
+    notificacion.className = `alert alert-${tipo === 'success' ? 'success' : tipo === 'info' ? 'info' : 'primary'} alert-dismissible fade show`;
+    notificacion.style.cssText = 'margin-bottom: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
+    notificacion.innerHTML = `
+        ${mensaje}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+
+    contenedorNotificaciones.appendChild(notificacion);
+
+    // Auto-remover después de 5 segundos
+    setTimeout(() => {
+        if (notificacion.parentNode) {
+            notificacion.remove();
+        }
+    }, 5000);
+}
+
+// MOVER PEDIDO AL HISTORIAL
+function moverPedidoAlHistorial(pedido) {
+    // Obtener historial existente
+    let historial = JSON.parse(localStorage.getItem('historialCompras') || '[]');
+
+    // Convertir pedido a formato de historial
+    const compraHistorial = {
+        id: pedido.id,
+        fecha: pedido.fechaRecepcion || pedido.fechaPedido,
+        items: pedido.items,
+        calificacion: null
+    };
+
+    historial.push(compraHistorial);
+    localStorage.setItem('historialCompras', JSON.stringify(historial));
+
+    // Remover del seguimiento activo
+    let pedidos = obtenerPedidos();
+    pedidos = pedidos.filter(p => p.id !== pedido.id);
+    guardarPedidos(pedidos);
+}
+
+// PROCESAR COMPRA CON SEGUIMIENTO
+function procesarCompraConSeguimiento() {
+    const carrito = obtenerCarrito();
+
+    if (carrito.length > 0) {
+        agregarPedido(carrito);
+        vaciarCarrito();
+        setTimeout(() => {
+            window.location.href = 'seguimientopedido.html';
+        }, 2000);
+    } else {
+        alert('Tu carrito está vacío.');
+    }
 }

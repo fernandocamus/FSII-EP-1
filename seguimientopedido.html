@@ -1,10 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- PESTAÑA DE LA PAGINA -->
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HuertoHogar - Seguimiento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 </head>
+
 <body>
+<!-- NAVEGACION -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">HUERTO HOGAR</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto d-flex flex-row">
+
+                <!-- REDIRIGIR A INICIO -->
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                </li>
+
+                <!-- REDIRIGIR A CATALOGO -->
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="catalogo.html">Catálogo</a>
+                </li>
+
+                <!-- REDIRIGIR A CARRITO -->
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="carrito.html">Carrito</a>
+                </li>
+
+                <!-- PERFIL CON SUS FUNCIONES -->
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link d-flex align-items-center" href="#" id="userMenu">
+                        <img src="./assets/img/iconoperfil.png" alt="Usuario" class="rounded-circle" width="35" height="35">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="userMenu"></ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- SEGUIMIENTO DE PEDIDOS -->
+<section class="container my-5">
+    <div class="extracto p-4 border rounded bg-light">
+        <main class="container my-5">
+            <h2 class="text-center mb-4">Seguimiento de tus compras</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover" id="historial-compras-table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Producto(s)</th>
+                        <th>Fecha</th>
+                        <th>Precio Total</th>
+                        <th>Fecha de Entrega</th>
+                        <th>Confirmar recepción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- LAS COMPRAS SE INSERTAN ACA -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</section>
+
+<!-- JQUERY (Para que funcione el funciones.js) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- FUNCIONES -->
+<script src="funciones.js"></script>
+
+<!-- BOOTSTRAP BUNDLE-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- PIE DE PAGINA -->
+<footer class="text-center p-3 mt-4">
+    <section class="">
+        <div class="container text-center text-md-start mt-5">
+            <div class="row mt-3">
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        Huerto Hogar
+                    </h6>
+
+                    <p>
+                        <a class="text-reset" href="sobrenosotros.html">Sobre Nosotros</a>
+                    </p>
+
+                    <p>
+                        <a class="text-reset" href="armatuhuerto.html">Arma tu huerto</a>
+                    </p>
+
+                </div>
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        Ayuda
+                    </h6>
+
+                    <p>
+                        <a class="text-reset active" href="#">Sigue tu pedido</a>
+                    </p>
+
+                </div>
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        Impacto ambiental
+                    </h6>
+
+                    <p>
+                        <a class="text-reset" href="huellacarbono.html">Huella de carbono</a>
+                    </p>
+
+                    <p>
+                        <a class="text-reset" href="contribuciones.html">Contribución a la comunidad</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="text-center p-4"> © HuertoHogar 2025 - Todos los derechos reservados</div>
+</footer>
 
 </body>
 </html>
