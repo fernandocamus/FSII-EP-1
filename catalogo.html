@@ -53,10 +53,306 @@
     </div>
 </nav>
 
+<!-- CATALOGO -->
+<main class="container my-5">
+    <div class="card p-4">
+        <h2 class="mb-4">Nuestro Catálogo de Productos Frescos y Orgánicos</h2>
 
+        <!-- BARRA DE BUSQUEDA Y FILTROS -->
+        <div class="card p-3 mb-4">
+            <input type="text" id="buscador" class="form-control" placeholder="Buscar productos por nombre, descripción o categoría...">
+            <div class="filtros mt-2">
+                <button class="btn btn-outline-success filtro-btn active" data-categoria="todos">Todos</button>
+                <button class="btn btn-outline-success filtro-btn" data-categoria="frutas">Frutas Frescas</button>
+                <button class="btn btn-outline-success filtro-btn" data-categoria="verduras">Verduras Orgánicas</button>
+                <button class="btn btn-outline-success filtro-btn" data-categoria="organicos">Productos Orgánicos</button>
+                <button class="btn btn-outline-success filtro-btn" data-categoria="lacteos">Productos Lácteos</button>
+            </div>
 
+            <p id="descripcion-categoria" class="text-muted mt-3"></p>
 
+        </div>
 
+        <!-- CONTENEDOR DE PRODUCTOS -->
+        <div class="row">
+            <section id="catalogo-productos" class="col-lg-8">
+
+                <!-- MANZANA -->
+                <div class="producto card p-3 mb-4" data-categoria="frutas" data-id="FR001">
+                    <div class="d-flex align-items-center gap-3">
+
+                        <!-- IMAGEN -->
+                        <img src="./assets/img/manzana.jpg" alt="Manzana" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+
+                        <!-- INFORMACION -->
+                        <div class="info-producto">
+                            <h3>Manzanas Fuji</h3>
+                            <p class="precio">$1,200 CLP <span class="unidad">por kilo</span></p>
+
+                            <!-- BOTON MAS INFORMACION -->
+                            <button class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#detalles-FR001">Ver más información</button>
+
+                            <!-- INFO EXTRA -->
+                            <div id="detalles-FR001" class="collapse mt-2">
+                                <p class="descripcion text-justify"><strong>Descripción:</strong> Manzanas Fuji crujientes y dulces, cultivadas en el Valle del Maule. Perfectas para meriendas saludables o postres. Estas manzanas son conocidas por su textura firme y su sabor equilibrado entre dulce y ácido.</p>
+                                <p class="origen"><strong>Origen:</strong> Valle del Maule</p>
+                                <p class="stock"><strong>Stock:</strong> 150 kilos</p>
+                                <p class="codigo-producto"><strong>Código:</strong> FR001</p>
+                                <p class="practicas-sostenibles"><strong>Prácticas Sostenibles:</strong> Cultivadas bajo certificación orgánica, sin pesticidas ni químicos sintéticos, promoviendo la biodiversidad local.</p>
+                                <p class="Recetas-sugeridas"><strong>Recetas Sugeridas:</strong> Ideal para ensaladas de frutas, tartas de manzana y jugos naturales.</p>
+                            </div>
+
+                            <!-- BOTON AÑADIR AL CARRITO -->
+                            <button class="btn btn-primary mt-2" onclick="agregarAlCarrito('FR001', 'Manzanas Fuji', 1200, 'kilo', 1)">Añadir al carrito</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NARANJA -->
+                <div class="producto card p-3 mb-4" data-categoria="frutas" data-id="FR002">
+                    <div class="d-flex align-items-center gap-3">
+
+                        <!-- IMAGEN -->
+                        <img src="./assets/img/naranja.jpg" alt="Naranja" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+
+                        <!-- INFORMACION -->
+                        <div class="info-producto">
+                            <h3>Naranjas Valencia</h3>
+                            <p class="precio">$1,000 CLP <span class="unidad">por kilo</span></p>
+
+                            <!-- BOTON MAS INFORMACION -->
+                            <button class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#detalles-FR002">Ver más información</button>
+
+                            <!-- INFO EXTRA -->
+                            <div id="detalles-FR002" class="collapse mt-2">
+                                <p class="descripcion"><strong>Descripción:</strong> Jugosas y ricas en vitamina C, ideales para zumos frescos y refrescantes. Cultivadas en condiciones climáticas óptimas que aseguran su dulzura y jugosidad.</p>
+                                <p class="origen"><strong>Origen:</strong> Región de Coquimbo</p>
+                                <p class="stock"><strong>Stock:</strong> 200 kilos</p>
+                                <p class="codigo-producto"><strong>Código:</strong> FR002</p>
+                                <p class="practicas-sostenibles"><strong>Prácticas Sostenibles:</strong> Agricultura responsable con riego eficiente y fertilización orgánica.</p>
+                                <p class="Recetas-sugeridas"><strong>Recetas Sugeridas:</strong> Zumo fresco, mermeladas caseras, ensaladas cítricas.</p>
+                            </div>
+
+                            <!-- BOTON AÑADIR AL CARRITO -->
+                            <button class="btn btn-primary mt-2" onclick="agregarAlCarrito('FR002', 'Naranjas Valencia', 1000, 'kilo', 1)">Añadir al carrito</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PLATANO -->
+                <div class="producto card p-3 mb-4" data-categoria="frutas" data-id="FR003">
+                    <div class="d-flex align-items-center gap-3">
+
+                        <!-- IMAGEN -->
+                        <img src="./assets/img/platano.jpg" alt="Platano" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+
+                        <!-- INFORMACION -->
+                        <div class="info-producto">
+                            <h3>Plátanos Cavendish</h3>
+                            <p class="precio">$800 CLP <span class="unidad">por kilo</span></p>
+
+                            <!-- BOTON MAS INFORMACION -->
+                            <button class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#detalles-FR003">Ver más información</button>
+
+                            <!-- INFO EXTRA -->
+                            <div id="detalles-FR003" class="collapse mt-2">
+                                <p class="descripcion"><strong>Descripción:</strong> Plátanos maduros y dulces, perfectos para desayuno o snack energético. Estos plátanos son ricos en potasio y vitaminas, ideales para mantener una dieta equilibrada.</p>
+                                <p class="origen"><strong>Origen:</strong> Ecuador - Importacion</p>
+                                <p class="stock"><strong>Stock:</strong> 250 kilos</p>
+                                <p class="codigo-producto"><strong>Código:</strong> FR003</p>
+                                <p class="practicas-sostenibles"><strong>Prácticas Sostenibles:</strong> Cultivo en plantaciones con manejo de residuos orgánicos y control biológico de plagas.</p>
+                                <p class="Recetas-sugeridas"><strong>Recetas Sugeridas:</strong> Batidos energéticos, pan de plátano, postres saludables.</p>
+                            </div>
+
+                            <!-- BOTON AÑADIR AL CARRITO -->
+                            <button class="btn btn-primary mt-2" onclick="agregarAlCarrito('FR003', 'Plátanos Cavendish', 800, 'kilo', 1)">Añadir al carrito</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ZANAHORIA -->
+                <div class="producto card p-3 mb-4" data-categoria="verduras" data-id="VR001">
+                    <div class="d-flex align-items-center gap-3">
+
+                        <!-- IMAGEN -->
+                        <img src="./assets/img/zanahoria.jpg" alt="Zanahoria" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+
+                        <!-- INFORMACION -->
+                        <div class="info-producto">
+                            <h3>Zanahorias Orgánicas</h3>
+                            <p class="precio">$900 CLP <span class="unidad">por kilo</span></p>
+
+                            <!-- BOTON MAS INFORMACION -->
+                            <button class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#detalles-VR001">Ver más información</button>
+
+                            <!-- INFO EXTRA -->
+                            <div id="detalles-VR001" class="collapse mt-2">
+                                <p class="descripcion"><strong>Descripción:</strong> Zanahorias crujientes cultivadas sin pesticidas en la Región de O'Higgins. Excelente fuente de vitamina A y fibra, ideales para ensaladas, jugos o como snack saludable.</p>
+                                <p class="origen"><strong>Origen:</strong> Región de O'Higgins</p>
+                                <p class="stock"><strong>Stock:</strong> 100 kilos</p>
+                                <p class="codigo-producto"><strong>Código:</strong> VR001</p>
+                                <p class="practicas-sostenibles"><strong>Prácticas Sostenibles:</strong> Sin pesticidas químicos, rotación de cultivos y compostaje natural.</p>
+                                <p class="Recetas-sugeridas"><strong>Recetas Sugeridas:</strong> Ensaladas, jugos detox, sopas y snacks horneados.</p>
+                            </div>
+
+                            <!-- BOTON AÑADIR AL CARRITO -->
+                            <button class="btn btn-primary mt-2" onclick="agregarAlCarrito('VR001', 'Zanahorias Orgánicas', 900, 'kilo', 1)">Añadir al carrito</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ESPINACA -->
+                <div class="producto card p-3 mb-4" data-categoria="verduras" data-id="VR002">
+                    <div class="d-flex align-items-center gap-3">
+
+                        <!-- IMAGEN -->
+                        <img src="./assets/img/espinaca.jpg" alt="Espinaca" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+
+                        <!-- INFORMACION -->
+                        <div class="info-producto">
+                            <h3>Espinacas Frescas</h3>
+                            <p class="precio">$700 CLP <span class="unidad">por bolsa de 500g</span></p>
+
+                            <!-- BOTON MAS INFORMACION -->
+                            <button class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#detalles-VR002">Ver más información</button>
+
+                            <!-- INFO EXTRA -->
+                            <div id="detalles-VR002" class="collapse mt-2">
+                                <p class="descripcion"><strong>Descripción:</strong> Espinacas frescas y nutritivas, perfectas para ensaladas y batidos verdes. Estas espinacas son cultivadas bajo prácticas orgánicas que garantizan su calidad y valor nutricional.</p>
+                                <p class="origen"><strong>Origen:</strong> Región de la Araucanía</p>
+                                <p class="stock"><strong>Stock:</strong> 80 bolsas</p>
+                                <p class="codigo-producto"><strong>Código:</strong> VR002</p>
+                                <p class="practicas-sostenibles"><strong>Prácticas Sostenibles:</strong> Cultivo orgánico certificado, manejo eficiente de agua y fertilización natural.</p>
+                                <p class="Recetas-sugeridas"><strong>Recetas Sugeridas:</strong> Batidos verdes, ensaladas, salteados con ajo y aceite de oliva.</p>
+                            </div>
+
+                            <!-- BOTON AÑADIR AL CARRITO -->
+                            <button class="btn btn-primary mt-2" onclick="agregarAlCarrito('VR002', 'Espinacas Frescas', 700, 'bolsa', 1)">Añadir al carrito</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PIMIENTO -->
+                <div class="producto card p-3 mb-4" data-categoria="verduras" data-id="VR003">
+                    <div class="d-flex align-items-center gap-3">
+
+                        <!-- IMAGEN -->
+                        <img src="./assets/img/pimiento.jpg" alt="Pimiento" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+
+                        <!-- INFORMACION -->
+                        <div class="info-producto">
+                            <h3>Pimientos Tricolores</h3>
+                            <p class="precio">$1,500 CLP <span class="unidad">por kilo</span></p>
+
+                            <!-- BOTON MAS INFORMACION -->
+                            <button class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#detalles-VR003">
+                                Ver más información
+                            </button>
+
+                            <!-- INFO EXTRA -->
+                            <div id="detalles-VR003" class="collapse mt-2">
+                                <p class="descripcion"><strong>Descripción:</strong> Pimientos rojos, amarillos y verdes, ideales para salteados y platos coloridos. Ricos en antioxidantes y vitaminas, estos pimientos añaden un toque vibrante y saludable a cualquier receta.</p>
+                                <p class="origen"><strong>Origen:</strong> Región de Valparaíso</p>
+                                <p class="stock"><strong>Stock:</strong> 120 kilos</p>
+                                <p class="codigo-producto"><strong>Código:</strong> VR003</p>
+                                <p class="practicas-sostenibles"><strong>Prácticas Sostenibles:</strong> Agricultura ecológica con control de plagas biológico y uso mínimo de fertilizantes.</p>
+                                <p class="Recetas-sugeridas"><strong>Recetas Sugeridas:</strong> Salteados, rellenos al horno, ensaladas coloridas.</p>
+                            </div>
+
+                            <!-- BOTON AÑADIR AL CARRITO -->
+                            <button class="btn btn-primary mt-2" onclick="agregarAlCarrito('VR003', 'Pimientos Tricolores', 1500, 'kilo', 1)">Añadir al carrito</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MIEL -->
+                <div class="producto card p-3 mb-4" data-categoria="organicos" data-id="PO001">
+                    <div class="d-flex align-items-center gap-3">
+
+                        <!-- IMAGEN -->
+                        <img src="./assets/img/miel.jpg" alt="Miel" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+
+                        <!-- INFORMACION -->
+                        <div class="info-producto">
+                            <h3>Miel Orgánica</h3>
+                            <p class="precio">$5,000 CLP <span class="unidad">por kilo</span></p>
+
+                            <!-- BOTON MAS INFORMACION -->
+                            <button class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#detalles-PO001">
+                                Ver más información
+                            </button>
+
+                            <!-- INFO EXTRA -->
+                            <div id="detalles-PO001" class="collapse mt-2">
+                                <p class="descripcion"><strong>Descripción:</strong> Miel pura y orgánica producida por apicultores locales. Rica en antioxidantes y sabor inigualable, perfecta para endulzar de manera natural tus comidas y bebidas.</p>
+                                <p class="origen"><strong>Origen:</strong> Región del Maule - Apiarios artesanales</p>
+                                <p class="stock"><strong>Stock:</strong> 50 frascos</p>
+                                <p class="codigo-producto"><strong>Código:</strong> PO001</p>
+                                <p class="practicas-sostenibles"><strong>Prácticas Sostenibles:</strong> Apicultura artesanal, colmenas manejadas de manera sostenible, sin antibióticos ni químicos.</p>
+                                <p class="Recetas-sugeridas"><strong>Recetas Sugeridas:</strong> Endulzar té o infusiones, aderezos para ensaladas, postres caseros.</p>
+                            </div>
+
+                            <!-- BOTON AÑADIR AL CARRITO -->
+                            <button class="btn btn-primary mt-2" onclick="agregarAlCarrito('PO001', 'Miel Orgánica', 5000, 'kilo', 1)">Añadir al carrito</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LECHE -->
+                <div class="producto card p-3 mb-4" data-categoria="lacteos" data-id="DL001">
+                    <div class="d-flex align-items-center gap-3">
+
+                        <!-- IMAGEN -->
+                        <img src="./assets/img/leche.jpg" alt="Leche" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+
+                        <!-- INFORMACION -->
+                        <div class="info-producto">
+                            <h3>Leche Fresca de Granja</h3>
+                            <p class="precio">$1,800 CLP <span class="unidad">por litro</span></p>
+
+                            <!-- BOTON MAS INFORMACION -->
+                            <button class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#detalles-DL001">
+                                Ver más información
+                            </button>
+
+                            <!-- INFO EXTRA -->
+                            <div id="detalles-DL001" class="collapse mt-2">
+                                <p class="descripcion"><strong>Descripción:</strong> Leche fresca y nutritiva de vacas criadas en pastoreo, rica en calcio.</p>
+                                <p class="origen"><strong>Origen:</strong> Región de Los Lagos - Granjas familiares</p>
+                                <p class="stock"><strong>Stock:</strong> 100 litros</p>
+                                <p class="codigo-producto"><strong>Código:</strong> DL001</p>
+                                <p class="practicas-sostenibles"><strong>Prácticas Sostenibles:</strong> Vacas alimentadas en pastoreo natural, manejo responsable de estiércol y conservación de suelos.</p>
+                                <p class="Recetas-sugeridas"><strong>Recetas Sugeridas:</strong> Batidos, postres lácteos, salsas y recetas de repostería.</p>
+                            </div>
+
+                            <!-- BOTON AÑADIR AL CARRITO -->
+                            <button class="btn btn-primary mt-2" onclick="agregarAlCarrito('DL001', 'Leche Fresca de Granja', 1800, 'litro', 1)">Añadir al carrito</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- CARRITO -->
+            <aside id="carrito-compras" class="col-lg-4">
+                <div class="card p-3">
+                    <h2>Tu Carrito</h2>
+                    <ul id="lista-carrito" class="list-group mb-3"></ul>
+                    <p class="total-carrito fw-bold">Total: $<span id="total-carrito">0</span></p>
+                    <button class="btn btn-danger mb-2" onclick="vaciarCarrito()">Vaciar Carrito</button>
+                    <button class="btn btn-success" onclick="procesarCompra()">Finalizar Compra</button>
+                </div>
+            </aside>
+        </div>
+    </div>
+</main>
 
 <!-- JQUERY (Para que funcione el funciones.js) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -68,7 +364,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- PIE DE PAGINA -->
-<footer class="text-white text-center p-3 mt-4">
+<footer class="text-center p-3 mt-4">
     <section class="">
         <div class="container text-center text-md-start mt-5">
             <div class="row mt-3">
@@ -86,10 +382,6 @@
                         <a class="text-reset" href="armatuhuerto.html">Arma tu huerto</a>
                     </p>
 
-                    <p>
-                        <a class="text-reset" href="nuestrastiendas.html">Nuestras tiendas</a>
-                    </p>
-
                 </div>
 
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -99,10 +391,6 @@
 
                     <p>
                         <a class="text-reset" href="seguimientopedido.html">Sigue tu pedido</a>
-                    </p>
-
-                    <p>
-                        <a class="text-reset" href="blog.html">Blog</a>
                     </p>
 
                 </div>

@@ -1,3 +1,4 @@
+/* ESTILOS GENERALES */
 body {
     background-color: #F7F7F7;
     font-family: "Montserrat", sans-serif;
@@ -6,61 +7,74 @@ body {
     background-repeat: repeat;
 }
 
+/* COLOR PARA LA BARRA DE NAVEGACION*/
 nav.navbar {
     background-color: #F7F7F7;
 }
 
+/* HUERTOHOGAR EN LA BARRA DE NAVEGACION*/
 nav.navbar .navbar-brand {
     color: #8B4513;
     font-weight: bold;
     font-size: 22px;
 }
 
+/* LINKS DE LA BARRA DE NAVEGACION*/
 nav.navbar .nav-link {
     color: #2E8B57;
     font-size: 20px;
 }
 
+/* LINK ACTIVO*/
 nav.navbar .nav-link.active {
     color: #256d44;
     font-size: 20px;
 }
 
+/* CAMBIO DE COLOR AL PASAR EL MOUSE EN BARRA DE NAVEGACION*/
 nav.navbar .nav-link:hover {
     color: #256d44;
 }
 
+/* PIE DE PAGINA */
 footer {
     background-color: #F7F7F7;
     color: #333333
 }
 
+/* TITULOS DEL PIE DEPAGINA*/
 footer h6 {
     color: #8B4513;
 }
 
+/* PARRAFOS DEL PIE DE PAGINA*/
 footer p {
     color: #2E8B57;
 }
 
+/* TEXTO GENERAL DEL PIE DE PAGINA*/
 footer div {
     color: #666666;
 }
 
+/* ENLACES DEL PIE DE PAGINA*/
 footer a {
     color: #2E8B57;
     text-decoration: none;
 }
 
+/* SUBRAYAR AL PASAR EL MOUSE EN EL PIE DE PAGINA*/
 footer a:hover {
     text-decoration: underline;
 }
+
+/* PRESENTACION*/
 .container-presentacion {
     max-width: 500px;
     margin: 0 auto;
 }
 
-/* Mostrar solo al pasar el mouse */
+/* MENU DESPLEGABLE */
 .nav-item.dropdown:hover .dropdown-menu {
     display: block;
     position: absolute;
@@ -70,35 +84,55 @@ footer a:hover {
     min-width: 190px;
 }
 
+/* LOGO */
 #logo{
     text-align: center;
 }
 
+/* FUENTE PARA ENCABEZADOS*/
 h1, h2, h3, h4, h5, h6 {
     font-family: "Playfair Display", serif;
     color: #8B4513;
 }
 
+/* LINKS GENERALES*/
 a {
     color: #2E8B57
 }
 
-
-
+/* COLOR DE BOTON*/
 .btn-primary {
     background-color: #2E8B57;
     border-color: #2E8B57;
 }
 
+/* CAMBIO DE COLOR AL PASAR EL MOUSE EN BOTON*/
 .btn-primary:hover {
     background-color: #256d44;
     border-color: #256d44;
 }
 
+/* FORMULARIO */
 .form-label {
     color: #666666;
 }
 
+/* COLOR OFERTAS ESPECIALES */
 .oferta-especial {
     color: #FFD700;
+}
+
+/* ESTILO PARA IMAGEN DE PRODUCTO */
+.producto img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* SEPARACION EN INFORMACION DE PRODUCTOS */
+.info-producto p {
+    border-bottom: 1px solid #ccc; /* línea gris */
+    padding-bottom: 5px;           /* espacio entre texto y línea */
+    margin-bottom: 5px;            /* espacio entre líneas de párrafos */
 }
